@@ -17,13 +17,12 @@
 
 //package org.apache.spark.examples.streaming;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
-
-import scala.Tuple2;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
@@ -36,6 +35,8 @@ import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaPairReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaUtils;
+
+import scala.Tuple2;
 
 /**
  * Consumes messages from one or more topics in Kafka and does wordcount.
@@ -64,7 +65,7 @@ public final class SparkStreaming {
     }*/
 
    // StreamingExamples.setStreamingLogLevels();
-    SparkConf sparkConf = new SparkConf().setAppName("JavaKafkaWordCount").setMaster("local[2]");
+    SparkConf sparkConf = new SparkConf().setAppName("mytestapp").setMaster("local[2]");
     // Create the context with 2 seconds batch size
     JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, new Duration(2000));
 
@@ -77,6 +78,7 @@ public final class SparkStreaming {
 
     JavaPairReceiverInputDStream<String, String> messages =
             KafkaUtils.createStream(jssc, "localhost:2181", "test", topicMap);
+   
 
     JavaDStream<String> lines = messages.map(new Function<Tuple2<String, String>, String>() {
       @Override
@@ -87,8 +89,14 @@ public final class SparkStreaming {
 
     JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
       @Override
-      public Iterable<String> call(String x) {
+    /*  public Iterable<String> call(String x) {
         return (Iterable<String>) Arrays.asList(SPACE.split(x)).iterator();
+      }*/
+      public Iterable<String> call(String x) {
+    	  String tempreture = x.substring(x.indexOf(":")+1);
+    	  System.out.println("Tempreture++++++++++ "+tempreture);
+    	 // This (tempreture) is the data to be printed on the UI . 
+          return Arrays.asList(x.split(" "));
       }
     });
 

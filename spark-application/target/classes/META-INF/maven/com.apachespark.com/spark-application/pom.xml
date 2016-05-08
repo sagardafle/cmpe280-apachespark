@@ -34,6 +34,7 @@
 			<artifactId>jmxri</artifactId> 
 			<groupId>com.sun.jmx</groupId> 
 		 </exclusion> 
+		
 		 <exclusion> 
 			<artifactId>jms</artifactId> 
 			<groupId>javax.jms</groupId> 

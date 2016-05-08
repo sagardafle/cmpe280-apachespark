@@ -18,11 +18,11 @@ public class KafkaProducer {
 		for (long nEvents = 0; nEvents < events; nEvents++) {
 			System.out.println("creating event " + nEvents);
 			long runtime = new Date().getTime();
-			String tempreture = "" + rnd.nextInt(125);
+			String tempreture = "" + rnd.nextInt(9);
 			String msg = runtime + " Current Tempreture is :" + tempreture;
 			KeyedMessage<String, String> data = new KeyedMessage<String, String>("test", tempreture, msg);
 			try {
-			    Thread.sleep(3000);                 //3000 milliseconds is three second.
+			    Thread.sleep(1000);                 //3000 milliseconds is three second.
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
