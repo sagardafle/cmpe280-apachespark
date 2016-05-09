@@ -23,6 +23,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Insets;
+
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.ThermometerPlot;
+import org.jfree.data.general.DefaultValueDataset;
+import org.jfree.ui.ApplicationFrame;
+
+import com.orsoncharts.util.json.JSONObject;
+
+import sagar.ThermometerDemo2;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
@@ -35,7 +48,6 @@ import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaPairReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaUtils;
-
 import scala.Tuple2;
 
 /**
@@ -59,14 +71,8 @@ public final class SparkStreaming {
   }
 
   public static void main(String[] args) throws Exception {
-    /*if (args.length < 4) {
-      System.err.println("Usage: JavaKafkaWordCount <zkQuorum> <group> <topics> <numThreads>");
-      System.exit(1);
-    }*/
-
-   // StreamingExamples.setStreamingLogLevels();
+	  JSONObject jo = new JSONObject();
     SparkConf sparkConf = new SparkConf().setAppName("mytestapp").setMaster("local[2]");
-    // Create the context with 2 seconds batch size
     JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, new Duration(2000));
 
     int numThreads = Integer.parseInt("2");
@@ -89,13 +95,11 @@ public final class SparkStreaming {
 
     JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
       @Override
-    /*  public Iterable<String> call(String x) {
-        return (Iterable<String>) Arrays.asList(SPACE.split(x)).iterator();
-      }*/
       public Iterable<String> call(String x) {
-    	  String tempreture = x.substring(x.indexOf(":")+1);
-    	  System.out.println("Tempreture++++++++++ "+tempreture);
-    	 // This (tempreture) is the data to be printed on the UI . 
+    	  String temperature = x.substring(x.indexOf(":")+1);
+    	  System.out.println("Temperature from spark++++++++++ "+temperature);
+    	  jo.put("temp", temperature);
+    	  //jo.put("lastName", "Doe");
           return Arrays.asList(x.split(" "));
       }
     });
