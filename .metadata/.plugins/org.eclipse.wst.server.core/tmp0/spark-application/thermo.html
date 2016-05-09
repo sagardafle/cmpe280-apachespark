@@ -1,0 +1,77 @@
+<html>
+<head>
+  <title></title> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+ <link href="bootstrap-switch.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="bootstrap-switch.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="weather/weather-icons.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+   <script type="text/javascript" src="thermo.js"></script>
+</head>
+
+
+
+<body class="sunny">   
+<div class="container text-center vcenter">
+<h1> Local Weather</h1>
+<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="row">
+         <div class="col-md-6 text-left">
+             <h3 id="city"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;<span>San Jose,CA</span></h3>
+         </div>
+         <div class="col-md-6 text-right temp-switch">
+             <h3><input id="switch-temp" type="checkbox" data-off-color="info"  data-on-color="default" data-label-text="<i class='wi wi-thermometer'></i>" data-label-icon="<i class='wi wi-celsius'></i>" data-on-text="<i class='wi wi-fahrenheit'></i>" data-off-text="<i class='wi wi-celsius'></i>" /></h3>
+         </div>          
+      </div>
+      <hr>
+      <div id="display">
+          <div class="row">
+              <div class="col-md-6" id="weather-icon-display">
+                  <div id="weather-icon"><i class="wi wi-sleet"></i></div>
+              </div>
+              <div class="col-md-6" id="temperature">
+                  <h4>Today</h4>
+                  
+                  <p><span id="temp"></span><sup>&deg;<span id="metric">F</span></sup></p>                 
+                  <h5>High: <span id="temp-max">26</span> / Low: <span id="temp-min">12</span></h5>
+              </div>
+          </div>
+      </div>
+      <hr id="hr-bottom">
+      <div class="row" id="weather-condition">
+          <div class="col-md-2 col-md-offset-1">
+              <h6><i class="wi wi-cloud"></i></h6>
+              <p id="condition">Sunny</p>
+          </div>
+            <div class="col-md-2">
+              <h6><i class="wi wi-humidity"></i></h6>
+              <p id="humidity">10%</p>
+          </div>
+            <div class="col-md-2">
+              <h6><i class="wi wi-strong-wind"></i></h6>
+              <p id="wind">windy 20 NE</p>
+           </div>
+            <div class="col-md-2">
+              <h6><i class="wi wi-barometer"></i></h6>
+              <p id="hpa">10 psi</p>
+            </div>
+            <div class="col-md-2">
+              <h6><i class="wi wi-showers"></i></h6>
+              <p id="prec">10%</p>
+            </div>          
+      </div>
+      <hr>
+  </div><!--/.panel-body-->
+ 
+</div>
+ <footer id="footer">
+      <p>&copy; Sarika Kale</p>
+  </footer>
+</div> <!-- /container -->  
+
+</body>
+</html>

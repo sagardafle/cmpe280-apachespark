@@ -1,0 +1,62 @@
+package sv.spark.rest;
+
+import org.restlet.Application;
+import org.restlet.Component;
+import org.restlet.Restlet;
+import org.restlet.routing.Router;
+import org.restlet.Server;
+import org.restlet.data.Protocol;
+
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+
+public class SimpleRestServiceApplication extends Application{
+	public SimpleRestServiceApplication() {
+		System.out.println("Starting kafka init");
+		KafkaProduce.kafkaInit();
+	
+	}
+	/*static Router routerEx;
+	static Application appEx;
+	static Component componentEx;
+	
+	public static void main(String[] args) throws Exception {
+		routerEx = new Router();
+	    routerEx.attach("/sparkrest", SimpleRestService.class);
+	    routerEx.attach("/sparkrest/{request}", SimpleRestService.class);
+	    
+	    appEx = new Application() {
+	        @Override
+	        public synchronized Restlet createInboundRoot() {
+	            routerEx.setContext(getContext());
+	            return routerEx;
+	        };
+	    };
+	    
+//	    componentEx = new Component();
+//	    componentEx.getDefaultHost().attach("/restlet", appEx);
+//	    
+//	    new Server(Protocol.HTTP, 8080, componentEx).start();
+	}*/
+	
+	
+
+	@Override
+	public synchronized Restlet createInboundRoot() {
+		//KafkaProduce.init();
+		//otherFunc();
+		// Create a router Restlet that routes each call to a
+		Router router = new Router(getContext());
+		router.attach("/sparkrest", SimpleRestService.class);
+		router.attach("/sparkrest/{request}", SimpleRestService.class);
+		return router;
+	}
+	
+	public static void otherFunc(){
+		System.out.println("Starting kafka init");
+		//KafkaProduce.init();
+	}
+}
