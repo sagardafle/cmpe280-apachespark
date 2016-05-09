@@ -68,7 +68,7 @@ public class KafkaProducer {
 		   
 		    System.out.println("\nCurrently\n");
 		   
-		    String tempreture = " " +currently.get().temperature()*rnd.nextInt(4);
+		    String tempreture = " " +currently.get().temperature()*5;
 		    String msg = runtime + " Current Tempreture is :"+tempreture;
 			KeyedMessage<String, String> data = new KeyedMessage<String, String>("testdemo", tempreture, msg);
 			try {

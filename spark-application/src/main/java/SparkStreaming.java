@@ -26,6 +26,10 @@ import java.util.regex.Pattern;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Insets;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -77,13 +81,13 @@ public final class SparkStreaming {
 
     int numThreads = Integer.parseInt("2");
     Map<String, Integer> topicMap = new HashMap<>();
-    String[] topics = "test".split(",");
+    String[] topics = "testdemo".split(",");
     for (String topic: topics) {
       topicMap.put(topic, numThreads);
     }
 
     JavaPairReceiverInputDStream<String, String> messages =
-            KafkaUtils.createStream(jssc, "localhost:2181", "test", topicMap);
+            KafkaUtils.createStream(jssc, "localhost:2181", "testdemo", topicMap);
    
 
     JavaDStream<String> lines = messages.map(new Function<Tuple2<String, String>, String>() {
@@ -95,11 +99,15 @@ public final class SparkStreaming {
 
     JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
       @Override
-      public Iterable<String> call(String x) {
+      public Iterable<String> call(String x) throws IOException {
     	  String temperature = x.substring(x.indexOf(":")+1);
-    	  System.out.println("Temperature from spark++++++++++ "+temperature);
-    	  jo.put("temp", temperature);
-    	  //jo.put("lastName", "Doe");
+    	/*  System.out.println("Temperature from spark++++++++++ "+temperature);
+    	  URL url = new URL("http://localhost:8080/apachetest/Test?var1="+temperature);
+    	  URLConnection conn = url.openConnection();
+          conn.setDoOutput(true);*/
+    	  final ThermometerDemo2 demo = new ThermometerDemo2("Thermometer Demo 2",temperature);
+          demo.pack();
+          demo.setVisible(true);
           return Arrays.asList(x.split(" "));
       }
     });
