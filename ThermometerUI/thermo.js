@@ -1,14 +1,26 @@
-$(window).load(function () {
+$(document).ready(function() {
+    //do jQuery stuff when DOM is ready
     //Set default input values on page load 
     //Default coordinates set to Boston, US
+    setInterval(function () {count()}, 1000);
+
+    function count(){
    var openWeatherMapAPI = "http://api.openweathermap.org/data/2.5/weather?lat=37.3393900&lon=-121.8949600&units=imperial&appid=ca6ff81b256ad199b3de759c58de182b",
         $temp = $("#temp"),
         $tempMax = $("#temp-max"),
         $tempMin = $("#temp-min"),
-        temp = 72,
+        temp = 73,
         tempMax = 81,
         tempMin = 64,
         weatherId = 800;
+        var i=70;
+        var data =Math.ceil(Math.random() * 100);        
+       
+         $('#temp').html(data);
+          console.log(data)
+        
+         
+     
      
        if(navigator.geolocation){
            navigator.geolocation.getCurrentPosition(function(position){                                  
@@ -17,11 +29,16 @@ $(window).load(function () {
                                                    position.coords.longitude + 
                                                     "&units=imperial&appid=ca6ff81b256ad199b3de759c58de182b";
              //only calls API if geolocation is enabled
+             
              fetchWeather(openWeatherMapAPI); 
+           
+
             });
-}
+         }
+       
+
   
-     
+     };
 
     //initialize temperature switch
     $("#switch-temp").bootstrapSwitch();
